@@ -35,8 +35,9 @@ jobs:
       - name: Get project version
         id: get_version
         run: |
-          VERSION=$(grep '^version=' gradle.properties | cut -d'=' -f2)
+          VERSION=$(grep '^version=' gradle.properties | cut -d'=' -f2 | tr -d '\r')
           echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+          echo "Detected version: $VERSION"
 
       - name: Build (run tests and create fat JAR)
         run: ./gradlew --no-daemon clean build
